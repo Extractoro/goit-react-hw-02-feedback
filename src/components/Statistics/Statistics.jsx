@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
 import s from './Statistics.module.css'
 
-export class Statistics extends Component {
-  render() {
-    const { good, neutral, bad, total, positiveFeedback  } = this.props
-
-    return (
-      <ul className={s['list']}>
+const Statistics = ({ good, neutral, bad, total, positiveFeedback }) => {
+  return (
+    <ul className={s['list']}>
         <li className={s['item']}>
           <p><b>Good:</b> {good}</p>
         </li>
@@ -24,8 +20,7 @@ export class Statistics extends Component {
           <p><b>Possitive feedback:</b> <span>{positiveFeedback}%</span></p>
         </li>
       </ul>
-    )
-  }
+  )
 }
 
 Statistics.propTypes = {
@@ -35,3 +30,5 @@ Statistics.propTypes = {
   total: PropTypes.number.isRequired,
   positiveFeedback: PropTypes.number.isRequired
 }
+
+export default Statistics

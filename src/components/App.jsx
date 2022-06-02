@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import { Container } from './Container';
-import { Section } from './Section';
-import { Statistics } from './Statistics';
-import { FeedbackOptions } from './FeedbackOptions';
-import { Notification } from './Notification';
+import Section from './Section';
+import Statistics from './Statistics';
+import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
+import Notification from './Notification';
+import Container from './Container';
 
-export class App extends Component {
+class App extends Component {
+  static defaultProps = {};
+  static propTypes = {};
+
   state = {
-      good: 0,
-      neutral: 0,
-      bad: 0,
+    good: 0,
+    neutral: 0,
+    bad: 0,
   } 
 
   feedbackHandler = e => {
@@ -44,21 +47,24 @@ export class App extends Component {
           <FeedbackOptions
             options={buttonTypes}
             onLeaveFeedback={this.feedbackHandler}
-          ></FeedbackOptions>
+          />
         </Section>
         <Section title='Statistics'>
-          {this.countTotalFeedback() === 0 ? (
+          {this.countTotalFeedback() ? (
+            <Statistics
+              good={good}
+              bad={bad}
+              neutral={neutral}
+              total={this.countTotalFeedback()}
+              positiveFeedback={this.countPositiveFeedback()}
+            />
+           ) : ( 
             <Notification message="There is no feedback"/>
-           ) : ( <Statistics
-            good={good}
-            bad={bad}
-            neutral={neutral}
-            total={this.countTotalFeedback()}
-            positiveFeedback={this.countPositiveFeedback()}
-          />
           )}
         </Section>
       </Container>
     )
   }
 }
+
+export default App;
